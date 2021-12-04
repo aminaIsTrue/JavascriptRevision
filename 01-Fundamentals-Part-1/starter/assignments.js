@@ -46,10 +46,31 @@ console.log (language);
 // console.log(description);
 
 //Assignement 5
-let population = 130;
-const country = "Morocco";
-if (population>33){
-    console.log(`${country}'s population is above average` )
-} else{
-    console.log(`${country}'s population is ${33-population} million below average!` )
-}
+// let population = 130;
+// const country = "Morocco";
+// if (population>33){
+//     console.log(`${country}'s population is above average` )
+// } else{
+//     console.log(`${country}'s population is ${33-population} million below average!` )
+// }
+//Assignement 6
+
+// const numNeighbours = Number(prompt('How many neighbour countries does your country have?'));
+// if (numNeighbours === 1){
+//     console.log("Only 1 border!")
+// } else if (numNeighbours > 1){
+//     console.log('More than 1 border' )
+// }else{
+//     console.log('No borders')
+// }
+
+//Assignement 7
+// const language = "Arabic"
+// const population = 36.7
+// const isIsland = false
+
+// if (language === "English" && population < 50 && !isIsland ){
+//     console.log("You should live in  Morocco")
+// }else{
+//     console.log("Morocco does not meet your criteria :(")
+// }
