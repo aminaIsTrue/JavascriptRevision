@@ -1,3 +1,0 @@
-the falsy numbers, are the numbers that  are changed to false when they are converted to Booleans
-Nan, Undefined,0, null
-Boolean(Nan);....
