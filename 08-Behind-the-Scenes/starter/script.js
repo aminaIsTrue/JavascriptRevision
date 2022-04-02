@@ -99,22 +99,65 @@
 // calcAgeArr(1986);
 
 // this keyword is the Amina Object: the parent Object
-const Amina = {
-  year: 1986,
-  calcAge: function () {
-    console.log(this);
-    console.log(2037 - this.year);
-  },
-};
-Amina.calcAge();
-// if we create an object that borrows a function from another object
-// then the this keyword will point now to the object that calls it
-const matilda = {
-  year: 2012,
-};
-matilda.calcAge = Amina.calcAge;
-matilda.calcAge();
+// const Amina = {
+//   year: 1986,
+//   calcAge: function () {
+//     console.log(this);
+//     console.log(2037 - this.year);
+//   },
+// };
+// Amina.calcAge();
+// // if we create an object that borrows a function from another object
+// // then the this keyword will point now to the object that calls it
+// const matilda = {
+//   year: 2012,
+// };
+// matilda.calcAge = Amina.calcAge;
+// matilda.calcAge();
 
-// based on the previous explanation,this keyword is undefined
-const f = Amina.calcAge;
-f();
+// // based on the previous explanation,this keyword is undefined
+// const f = Amina.calcAge;
+// f();
+
+// primitive variables in practice
+
+//the mutation works because
+// when mutating the lastName primitive variable
+// it means that we created a new @memory with the new value. so the lastName identifier will no longer point the previous memory @ but only OldLastName variable is
+// let lastName = 'Wiliams';
+// let oldLastName = lastName;
+// lastName = 'Davis';
+// console.log(lastName, oldLastName);
+
+// // reference variables in practice
+// // this creates an @memory in the call stack whose value is the memory@ in the heap containing the actual object
+// const Amina = {
+//   firstName: 'Amina',
+//   lastName: 'Ouj',
+//   age: 36,
+// };
+// // by doing this we are creating  another unique identifier called MarriedAmina which points to the same memory @ as the unique identifier Amina which means that it in turns refer to the same @memory in the heap containing the Amina Object as a value
+// // thats why any change made by either objects is repercuted to both
+// const MarriedAmina = Amina;
+// MarriedAmina.lastName = 'Schmidt   ';
+// console.log('Name befor getting married: ', Amina.lastName);
+// console.log('Name After getting married: ', MarriedAmina.lastName);
+
+// // what if we want to change one without changing the other
+
+// we use Object.assign: works just for first level objects (shallow copy)
+const Amina = {
+  firstName: 'Amina',
+  lastName: 'Ouj',
+  age: 36,
+  family: ['Alice', 'Jalalay', 'Titif'],
+};
+
+const MarriedAmina = Object.assign({}, Amina);
+MarriedAmina.lastName = 'Schmidt';
+MarriedAmina.family.push('Jonas');
+console.log('familiy ', Amina.family);
+console.log('family: ', MarriedAmina.family);
+
+// what to use for nested objects? (deep clone)
+// advanced topic involving importing some external library (for future search)
