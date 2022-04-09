@@ -38,16 +38,60 @@ const restaurant = {
       `order have been received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
+
+  // function that accepts multiple arguments
+  test: function (p1, p2, p3, p4, p5) {
+    console.log(p1, p2, p3, p4, p5);
+  },
 };
 
+// spread operator on Objects :since ES18
+// console.log({ ...restaurant.openingHours });
+const newOpeningHours = {
+  ...restaurant.openingHours,
+  sun: { open: 10, close: 23 },
+};
+// console.log({ ...newOpeningHours });
+// object copy
+const hoursCopy = { ...newOpeningHours };
+console.log(hoursCopy);
+// use the spead operator to pass the argumants to
+// // the test function
+// const arr = [1, 2, 3, 5, 8];
+// restaurant.test(...arr);
+// the spread operator
+// const arr = [4, 5, 6];
+// // const badNewArr = [1, 2, 3, arr[0], arr[1], arr[2]];
+// // console.log(badNewArr);
+// const newArr = [1, 2, 3, ...arr];
+// console.log(newArr);
+// // use the spread operator for the function arguments
+// console.log(...newArr);
+// applications of spread operator
+// adding a nemenu item to the retaurant main menu
+// collection main menue by destructuring the restaurant object
+// let { mainMenu, starterMenu } = restaurant;
+// // mainMenu = ['Omlette', ...mainMenu];
+// // console.log(mainMenu);
+// // console.log(...mainMenu);
+// // copy an array
+// const mainMenuCopy = [...mainMenu];
+// console.log(mainMenuCopy);
+// // joint 2 arrays
+// const fullMenu = [...starterMenu, ...mainMenu];
+// console.log(fullMenu);
+// spread operator on a string
+// const myName = 'Amina';
+// const NameAsSeparatedLetter = [...myName];
+// console.log(NameAsSeparatedLetter);
 // destructuring real use in functions' parameter declaration
 
-restaurant.orderDelivery({
-  time: '00:00',
-  address: 'Leihgesterner weg 130',
-  starterIndex: 2,
-  mainIndex: 2,
-});
+// restaurant.orderDelivery({
+//   time: '00:00',
+//   address: 'Leihgesterner weg 130',
+//   starterIndex: 2,
+//   mainIndex: 2,
+// });
 
 // destructuring objects useful while using API
 // must use the same vriables name as the object to destructure
@@ -71,12 +115,12 @@ restaurant.orderDelivery({
 // console.log(starterMenu, mainMenu);
 
 // nested objects
-const {
-  openingHours: {
-    fri: { open: oFri, close: cFri },
-  },
-} = restaurant;
-console.log(oFri, cFri);
+// const {
+//   openingHours: {
+//     fri: { open: oFri, close: cFri },
+//   },
+// } = restaurant;
+// console.log(oFri, cFri);
 
 // const arr = [2, 3, 4];
 // // the old way of destructuring the array
