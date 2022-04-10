@@ -190,5 +190,26 @@ const restaurant = {
 // const x = [5, 6];
 // add(...x);
 
-restaurant.order('Tuna', 'Olives', 'Mashrooms', 'Mozzarella');
-restaurant.order('Olives');
+// restaurant.order('Tuna', 'Olives', 'Mashrooms', 'Mozzarella');
+// restaurant.order('Olives');
+
+// short-circuting for ||
+// console.log(3 || 'Amina');
+// console.log('' || 'Amina');
+// console.log(true || 0);
+// console.log(undefined || null);
+// restaurant.numGuests = 18;
+// const guests = restaurant.numGuests || 10;
+// console.log(guests);
+
+// short-circuting for &&
+// console.log(3 && 'Amina');
+// console.log(true && '');
+// console.log(true && 'a' && 23 && undefined && 'f');
+// practical example
+// check if a function exists
+// if (restaurant.order) {
+//   restaurant.order('Tuna', 'Mozzarella');
+// }
+// same logic with && short-circuting
+restaurant.order && restaurant.order('Tuna', 'Mozzarella');
