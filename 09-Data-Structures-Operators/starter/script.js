@@ -43,18 +43,22 @@ const restaurant = {
   test: function (p1, p2, p3, p4, p5) {
     console.log(p1, p2, p3, p4, p5);
   },
+  order: function (mainIngr, ...otherIng) {
+    console.log(mainIngr);
+    console.log(otherIng);
+  },
 };
 
 // spread operator on Objects :since ES18
 // console.log({ ...restaurant.openingHours });
-const newOpeningHours = {
-  ...restaurant.openingHours,
-  sun: { open: 10, close: 23 },
-};
-// console.log({ ...newOpeningHours });
-// object copy
-const hoursCopy = { ...newOpeningHours };
-console.log(hoursCopy);
+// const newOpeningHours = {
+//   ...restaurant.openingHours,
+//   sun: { open: 10, close: 23 },
+// };
+// // console.log({ ...newOpeningHours });
+// // object copy
+// const hoursCopy = { ...newOpeningHours };
+// console.log(hoursCopy);
 // use the spead operator to pass the argumants to
 // // the test function
 // const arr = [1, 2, 3, 5, 8];
@@ -152,3 +156,39 @@ console.log(hoursCopy);
 // const [q = -1, r = -1, s = -1] = [1, 2];
 
 // console.log(q, r, s);
+
+// spread operator because it it is in th righ hand of the asseignment
+// const arr = [1, 2, ...[4, 5, 6]];
+// console.log(arr);
+
+// destructuring an arr while using Rest syntax
+// the spread operator is in the left position called Rest Syntax
+// const [a, b, ...arr1] = [1, 2, 3, 8, 9, 6];
+// console.log(a);
+// console.log(arr1);
+
+// Rest in objects
+
+// const { openingHours, ...other } = restaurant;
+// console.log(openingHours);
+// console.log(other);
+// const { sat, ...weekDays } = restaurant.openingHours;
+// console.log(sat);
+// console.log(weekDays);
+
+//Rest on functions
+// const add = function (...nums) {
+//   console.log(nums);
+//   let sum = 0;
+//   for (let index = 0; index < nums.length; index++) {
+//     sum = sum + nums[index];
+//   }
+//   console.log(sum);
+// };
+// add(1, 2);
+// add(5, 2, 8, 14);
+// const x = [5, 6];
+// add(...x);
+
+restaurant.order('Tuna', 'Olives', 'Mashrooms', 'Mozzarella');
+restaurant.order('Olives');
