@@ -198,9 +198,14 @@ const restaurant = {
 // console.log('' || 'Amina');
 // console.log(true || 0);
 // console.log(undefined || null);
-// restaurant.numGuests = 18;
+restaurant.numGuests = 3;
 // const guests = restaurant.numGuests || 10;
 // console.log(guests);
+
+// The Nullish coalasing operator
+// doea not considers 0 and '' as falsy values
+const guestsCorrect = restaurant.numGuests ?? 10;
+console.log(guestsCorrect);
 
 // short-circuting for &&
 // console.log(3 && 'Amina');
@@ -212,4 +217,7 @@ const restaurant = {
 //   restaurant.order('Tuna', 'Mozzarella');
 // }
 // same logic with && short-circuting
-restaurant.order && restaurant.order('Tuna', 'Mozzarella');
+// restaurant.order && restaurant.order('Tuna', 'Mozzarella');
+
+// The Nullish coalasing operator
+// doea not considers 0 and '' as falsy values
