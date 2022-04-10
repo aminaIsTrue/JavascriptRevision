@@ -198,14 +198,14 @@ const restaurant = {
 // console.log('' || 'Amina');
 // console.log(true || 0);
 // console.log(undefined || null);
-restaurant.numGuests = 3;
+// restaurant.numGuests = 3;
 // const guests = restaurant.numGuests || 10;
 // console.log(guests);
 
 // The Nullish coalasing operator
 // doea not considers 0 and '' as falsy values
-const guestsCorrect = restaurant.numGuests ?? 10;
-console.log(guestsCorrect);
+// const guestsCorrect = restaurant.numGuests ?? 10;
+// console.log(guestsCorrect);
 
 // short-circuting for &&
 // console.log(3 && 'Amina');
@@ -221,3 +221,40 @@ console.log(guestsCorrect);
 
 // The Nullish coalasing operator
 // doea not considers 0 and '' as falsy values
+
+// ES2021 the ney logical assignment operators
+
+const rest1 = {
+  rName: 'La lune',
+  numGuests: 20,
+};
+const rest2 = {
+  rName: 'Nora',
+  Owner: 'Amina',
+};
+// add defult guest number of it does not exsist
+// using the || operator
+// rest1.numGuests = rest1.numGuests || 10;
+// we can write it with the logical assignment operator (|| or ??) so we do not repeat left side of the assignment
+// rest1.numGuests ||= 10;
+// rest1.numGuests ??= 10;
+
+// same logic goes here
+// rest2.numGuests = rest2.numGuests || 10;
+// rest2.numGuests ||= 10;
+// rest2.numGuests ??= 10;
+// console.log(rest1);
+// console.log(rest2);
+
+// using the && logical assignment operator
+
+// rest2.Owner = rest2.Owner && 'Anonymous';
+// rest2.Owner &&= 'Anonymous';
+
+// this set Owner to undefined
+// rest1.Owner = rest1.Owner && 'Anonymous';
+// this will not set Owner variable with undefined
+// but not assign it at all!
+rest1.Owner &&= 'Anonymous';
+console.log(rest1);
+// console.log(rest2);
