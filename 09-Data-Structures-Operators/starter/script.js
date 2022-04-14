@@ -5,49 +5,49 @@
 //   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
 // Data needed for first part of the section
-// const restaurant = {
-//   nameRestaurant: 'Classico Italiano',
-//   locationRestaurant: 'Via Angelo Tavanti 23, Firenze, Italy',
-//   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
-//   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
-//   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-//   openingHours: {
-//     thu: {
-//       open: 12,
-//       close: 22,
-//     },
-//     fri: {
-//       open: 11,
-//       close: 23,
-//     },
-//     sat: {
-//       open: 0, // Open 24 hours
-//       close: 24,
-//     },
-//   },
-//   order: function (starterIndex, mainIndex) {
-//     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-//   },
-//   orderDelivery: function ({
-//     starterIndex = 0,
-//     mainIndex = 1,
-//     time = '21:00',
-//     address = 'Pickup',
-//   }) {
-//     console.log(
-//       `order have been received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
-//     );
-//   },
+const restaurant = {
+  nameRestaurant: 'Classico Italiano',
+  locationRestaurant: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+  openingHours: {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+    sat: {
+      open: 0, // Open 24 hours
+      close: 24,
+    },
+  },
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+  orderDelivery: function ({
+    starterIndex = 0,
+    mainIndex = 1,
+    time = '21:00',
+    address = 'Pickup',
+  }) {
+    console.log(
+      `order have been received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
+    );
+  },
 
-//   // function that accepts multiple arguments
-//   test: function (p1, p2, p3, p4, p5) {
-//     console.log(p1, p2, p3, p4, p5);
-//   },
-//   order: function (mainIngr, ...otherIng) {
-//     console.log(mainIngr);
-//     console.log(otherIng);
-//   },
-// };
+  // function that accepts multiple arguments
+  test: function (p1, p2, p3, p4, p5) {
+    console.log(p1, p2, p3, p4, p5);
+  },
+  order: function (mainIngr, ...otherIng) {
+    console.log(mainIngr);
+    console.log(otherIng);
+  },
+};
 
 // spread operator on Objects :since ES18
 // console.log({ ...restaurant.openingHours });
@@ -258,3 +258,15 @@
 // rest1.Owner &&= 'Anonymous';
 // console.log(rest1);
 // console.log(rest2);
+
+// Using the for loop introduced in ES6
+
+const menu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+// console.log(menu);
+// for (const item of menu) console.log(item, menu.indexOf(item));
+console.log(`The menu consist of`);
+
+// console.log(` ${item[0] + 1}: ${item[1]}`);
+for (const [a, b] of menu.entries()) {
+  console.log(` ${a + 1}: ${b}`);
+}
