@@ -5,10 +5,10 @@
 //   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 // object literals  Enhancement (ES6)
 //3-we can compute proprety name
-const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-const [, day2, , , , , ,] = [...weekdays];
+// const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+// const [, day2, , , , , ,] = [...weekdays];
 const openingHours = {
-  [day2]: {
+  mon: {
     open: 12,
     close: 22,
   },
@@ -45,7 +45,6 @@ const restaurant = {
       `order have been received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
-
   // function that accepts multiple arguments
   test(p1, p2, p3, p4, p5) {
     console.log(p1, p2, p3, p4, p5);
@@ -54,8 +53,31 @@ const restaurant = {
     console.log(mainIngr);
     console.log(otherIng);
   },
+  test1(x) {
+    // console.log('Amina');
+    x = 10;
+    return x;
+  },
 };
+// error because mon does not exist
+// console.log(restaurant.openingHours.mon.open);
+// with Optional chaining ES2020: on variables
+// console.log(restaurant.openingHours.mon?.open);
+// example
+// const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+// for (const day of days) {
+//   const open = restaurant.openingHours[day]?.open;
+//   restaurant.openingHours[day] && console.log(`In ${day}, we open at: ${open}`);
+// }
 
+// with Optional chaining ES2020: on methods
+// console.log(restaurant.test1?.(0) ?? 'Method does not exist!');
+// console.log(restaurant.eat?.('aaa') ?? 'Method does not exist!');
+// with Optional chaining ES2020: on arrays
+const arr = [{ fName: 'Amina', age: 36 }];
+const arr1 = [];
+console.log(arr[1]?.fName || 'no such a value');
+console.log(arr1?.[1]?.fName || 'Array is empty');
 // spread operator on Objects :since ES18
 // console.log({ ...restaurant.openingHours });
 // const newOpeningHours = {
