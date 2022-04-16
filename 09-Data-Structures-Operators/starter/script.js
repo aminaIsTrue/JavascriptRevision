@@ -74,10 +74,10 @@ const restaurant = {
 // console.log(restaurant.test1?.(0) ?? 'Method does not exist!');
 // console.log(restaurant.eat?.('aaa') ?? 'Method does not exist!');
 // with Optional chaining ES2020: on arrays
-const arr = [{ fName: 'Amina', age: 36 }];
-const arr1 = [];
-console.log(arr[1]?.fName || 'no such a value');
-console.log(arr1?.[1]?.fName || 'Array is empty');
+// const arr = [{ fName: 'Amina', age: 36 }];
+// const arr1 = [];
+// console.log(arr[1]?.fName || 'no such a value');
+// console.log(arr1?.[1]?.fName || 'Array is empty');
 // spread operator on Objects :since ES18
 // console.log({ ...restaurant.openingHours });
 // const newOpeningHours = {
