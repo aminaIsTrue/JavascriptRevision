@@ -299,3 +299,31 @@ const restaurant = {
 // for (const [a, b] of menu.entries()) {
 //   console.log(` ${a + 1}: ${b}`);
 // }
+
+// ESs "set": collection of non duplicate elements
+// !!!  the main usecase of sets is to remove duplicates from arrays
+const orderSet = new Set(['Pizza', 'Foccaccia', 'Rizzotto', 'Pizza']);
+
+// we can then create an array with the non-duplicate elements from the set
+const orderSetUniqueArr = [...orderSet];
+console.log(orderSetUniqueArr);
+// console.log(orderSet);
+// console.log(orderSet.size);
+// console.log(orderSet.has('Bread'));
+// console.log(orderSet.has('Foccaccia'));
+// orderSet.add('Garlic Bread', 'Garlic Bread');
+// console.log(orderSet);
+// orderSet.delete('Garlic Bread');
+// console.log(orderSet);
+// orderSet.clear();
+// console.log(orderSet);
+
+// iterating through a set (because it is iterable)
+// for (const order of orderSet) {
+//   console.log(order);
+// }
+
+//!! there is no need to retrieve elements from the set
+// because the elements in the set are unique
+// & because the order of the elements is not important
+// !! the only thing we want to know if an element does exist and that we can do with has() method

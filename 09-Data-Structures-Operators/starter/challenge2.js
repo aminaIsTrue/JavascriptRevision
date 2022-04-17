@@ -54,12 +54,12 @@ const game = {
 // console.log(`The average odd is: ${sum / odds.length}`);
 
 // 3-
-for (let [team, odd] of Object.entries(game.odds)) {
-  team =
-    (team === 'team1' && game[team]) || (team === 'team2' && game[team]) || '';
-  const victory = (team && 'victory') || 'draw';
-  console.log(`Odd of ${victory} ${team}: ${odd}`);
-}
+// for (let [team, odd] of Object.entries(game.odds)) {
+//   team =
+//     (team === 'team1' && game[team]) || (team === 'team2' && game[team]) || '';
+//   const victory = (team && 'victory') || 'draw';
+//   console.log(`Odd of ${victory} ${team}: ${odd}`);
+// }
 
 // // 4-
 // // put scorers names in an array
