@@ -302,11 +302,11 @@ const restaurant = {
 
 // ESs "set": collection of non duplicate elements
 // !!!  the main usecase of sets is to remove duplicates from arrays
-const orderSet = new Set(['Pizza', 'Foccaccia', 'Rizzotto', 'Pizza']);
+// const orderSet = new Set(['Pizza', 'Foccaccia', 'Rizzotto', 'Pizza']);
 
 // we can then create an array with the non-duplicate elements from the set
-const orderSetUniqueArr = [...orderSet];
-console.log(orderSetUniqueArr);
+// const orderSetUniqueArr = [...orderSet];
+// console.log(orderSetUniqueArr);
 // console.log(orderSet);
 // console.log(orderSet.size);
 // console.log(orderSet.has('Bread'));
@@ -327,3 +327,61 @@ console.log(orderSetUniqueArr);
 // because the elements in the set are unique
 // & because the order of the elements is not important
 // !! the only thing we want to know if an element does exist and that we can do with has() method
+
+// Maps datastructure to map values to keys
+// In Maps the keys can have any value however in Objects Keys are basically always strings
+
+// const Rest = new Map();
+
+// console.log(Rest.set('name', 'Classici Italiano'));
+// console.log(Rest.set(1, 'Lisbon'));
+// console.log(Rest.set(2, 'Florence'));
+// because the set method of the Map datastructure returns the updates Map
+// we can "chain" the set methods like this
+
+// Rest.set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+//   .set('opens', 12)
+//   .set('close', 23)
+//   .set(true, 'We are open!')
+//   .set(false, 'We are closd!');
+// console.log(Rest);
+// console.log(Rest.get(true));
+// const time = 12;
+
+// console.log(Rest.get(time >= Rest.get('opens') && time < Rest.get('close')));
+
+// console.log(Rest.has('opens'));
+// Rest.delete(2);
+// console.log(Rest);
+// console.log(Rest.size);
+// // Rest.clear();
+// console.log(Rest);
+
+// alternative to populate a map without using the set method
+const question = new Map([
+  ['question', 'what is the best programming language'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'Javascript'],
+  ['Correct', 'Javascript'],
+  [true, 'Corrrect'],
+  [false, 'Try again'],
+]);
+// console.log(question);
+console.log(question.get('question'));
+// iterating through the map
+for (const [key, value] of question) {
+  typeof key === 'number' && console.log(`Answer ${key}: ${value}`);
+}
+// test by value
+// const answer = prompt('Please choose the correct answer');
+// const correct = question.get('Correct');
+
+// console.log(question.get(answer === correct));
+
+// test by key
+// const answer = Number(prompt('Please choose the correct answer'));
+// const correct = question.get('Correct');
+// console.log(question.get(question.get(answer) === correct));
+// convert Map to array
+console.log([...question]);
