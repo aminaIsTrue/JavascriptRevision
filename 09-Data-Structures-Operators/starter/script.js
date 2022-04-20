@@ -368,11 +368,11 @@ const question = new Map([
   [false, 'Try again'],
 ]);
 // console.log(question);
-console.log(question.get('question'));
-// iterating through the map
-for (const [key, value] of question) {
-  typeof key === 'number' && console.log(`Answer ${key}: ${value}`);
-}
+// console.log(question.get('question'));
+// // iterating through the map
+// for (const [key, value] of question) {
+//   typeof key === 'number' && console.log(`Answer ${key}: ${value}`);
+// }
 // test by value
 // const answer = prompt('Please choose the correct answer');
 // const correct = question.get('Correct');
@@ -384,4 +384,41 @@ for (const [key, value] of question) {
 // const correct = question.get('Correct');
 // console.log(question.get(question.get(answer) === correct));
 // convert Map to array
-console.log([...question]);
+// console.log([...question]);
+
+// working with strings
+const airline = 'Tap Air Portugal';
+const plane = 'A320';
+console.log(plane[0]);
+console.log(airline.length);
+// give the first occurence of  a charahter or part of a string
+console.log(airline.indexOf('r'));
+// gives the last occurence of charachter or part of a string
+console.log(airline.lastIndexOf('r'));
+
+// select a sub-string starting from an index
+console.log(airline.slice(4));
+// select a sub-string stating the begining and end index
+console.log(airline.slice(4, 7));
+// or dynamically
+const lastIndex = airline.indexOf(' ');
+console.log(airline.slice(0, lastIndex));
+console.log(airline.slice(airline.lastIndexOf(' ') + 1));
+// small practice
+const checkMiddlSeat = function (seat) {
+  // middle seats are B & E
+  const isMiddle = seat.indexOf('B') || seat.indexOf('E');
+  isMiddle != -1
+    ? console.log(`${seat} is in the middle Row`)
+    : console.log(`${seat} is NOT in the middle Row`);
+};
+
+checkMiddlSeat('11B');
+checkMiddlSeat('112A');
+
+// replace All method
+const announcement =
+  'All passengers come to boarding door 23. I repeat boarding door 23!';
+console.log(announcement.replaceAll('door', 'gate'));
+// using regular expression
+console.log(announcement.replace(/door/g, 'gate'));
