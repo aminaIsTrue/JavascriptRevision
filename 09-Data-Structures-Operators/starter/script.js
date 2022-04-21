@@ -358,15 +358,15 @@ const restaurant = {
 // console.log(Rest);
 
 // alternative to populate a map without using the set method
-const question = new Map([
-  ['question', 'what is the best programming language'],
-  [1, 'C'],
-  [2, 'Java'],
-  [3, 'Javascript'],
-  ['Correct', 'Javascript'],
-  [true, 'Corrrect'],
-  [false, 'Try again'],
-]);
+// const question = new Map([
+//   ['question', 'what is the best programming language'],
+//   [1, 'C'],
+//   [2, 'Java'],
+//   [3, 'Javascript'],
+//   ['Correct', 'Javascript'],
+//   [true, 'Corrrect'],
+//   [false, 'Try again'],
+// ]);
 // console.log(question);
 // console.log(question.get('question'));
 // // iterating through the map
@@ -387,38 +387,55 @@ const question = new Map([
 // console.log([...question]);
 
 // working with strings
-const airline = 'Tap Air Portugal';
-const plane = 'A320';
-console.log(plane[0]);
-console.log(airline.length);
+// const airline = 'Tap Air Portugal';
+// const plane = 'A320';
+// console.log(plane[0]);
+// console.log(airline.length);
 // give the first occurence of  a charahter or part of a string
-console.log(airline.indexOf('r'));
+// console.log(airline.indexOf('r'));
 // gives the last occurence of charachter or part of a string
-console.log(airline.lastIndexOf('r'));
+// console.log(airline.lastIndexOf('r'));
 
 // select a sub-string starting from an index
-console.log(airline.slice(4));
+// console.log(airline.slice(4));
 // select a sub-string stating the begining and end index
-console.log(airline.slice(4, 7));
+// console.log(airline.slice(4, 7));
 // or dynamically
-const lastIndex = airline.indexOf(' ');
-console.log(airline.slice(0, lastIndex));
-console.log(airline.slice(airline.lastIndexOf(' ') + 1));
+// const lastIndex = airline.indexOf(' ');
+// console.log(airline.slice(0, lastIndex));
+// console.log(airline.slice(airline.lastIndexOf(' ') + 1));
 // small practice
-const checkMiddlSeat = function (seat) {
-  // middle seats are B & E
-  const isMiddle = seat.indexOf('B') || seat.indexOf('E');
-  isMiddle != -1
-    ? console.log(`${seat} is in the middle Row`)
-    : console.log(`${seat} is NOT in the middle Row`);
-};
+// const checkMiddlSeat = function (seat) {
+//   // middle seats are B & E
+//   const isMiddle = seat.indexOf('B') || seat.indexOf('E');
+//   isMiddle != -1
+//     ? console.log(`${seat} is in the middle Row`)
+//     : console.log(`${seat} is NOT in the middle Row`);
+// };
 
-checkMiddlSeat('11B');
-checkMiddlSeat('112A');
+// checkMiddlSeat('11B');
+// checkMiddlSeat('112A');
 
 // replace All method
-const announcement =
-  'All passengers come to boarding door 23. I repeat boarding door 23!';
-console.log(announcement.replaceAll('door', 'gate'));
+// const announcement =
+//   'All passengers come to boarding door 23. I repeat boarding door 23!';
+// console.log(announcement.replaceAll('door', 'gate'));
 // using regular expression
-console.log(announcement.replace(/door/g, 'gate'));
+// console.log(announcement.replace(/door/g, 'gate'));
+// const CapitalizeName = function (n) {
+//   const names = n.split(' ');
+//   let capitalName = [];
+//   for (let na of names) {
+//     na = na[0].toUpperCase() + na.slice(1);
+//     capitalName.push(na);
+//   }
+//   console.log(capitalName.join(' '));
+// };
+
+// CapitalizeName('amina ouj');
+
+// const MaskCreditCard = function (creditCard) {
+//   creditCard = String(creditCard);
+//   console.log(creditCard.slice(-4).padStart(creditCard.length, '#'));
+// };
+// MaskCreditCard(1234567891234567);
