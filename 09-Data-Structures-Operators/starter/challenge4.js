@@ -31,17 +31,17 @@ Afterwards, test with your own test data!
 GOOD LUCK 😀
 */
 
-document.body.append(document.createElement('textarea'));
-document.body.append(document.createElement('button'));
+// document.body.append(document.createElement('textarea'));
+// document.body.append(document.createElement('button'));
 
-document.querySelector('button').addEventListener('click', function () {
-  const text = document.querySelector('textarea').value;
-  const words = text.split('\n');
-  for (let i = 0; i < words.length; i++) {
-    const split = words[i].split('_');
-    const camelCaseWord =
-      split[0] + split[1].replace(split[1][0], split[1][0].toUpperCase());
+// document.querySelector('button').addEventListener('click', function () {
+//   const text = document.querySelector('textarea').value;
+//   const words = text.split('\n');
+//   for (let i = 0; i < words.length; i++) {
+//     const split = words[i].split('_');
+//     const camelCaseWord =
+//       split[0] + split[1].replace(split[1][0], split[1][0].toUpperCase());
 
-    console.log(`${camelCaseWord.padEnd(20, ' ')} ${'✅'.repeat(i + 1)}`);
-  }
-});
+//     console.log(`${camelCaseWord.padEnd(20, ' ')} ${'✅'.repeat(i + 1)}`);
+//   }
+// });

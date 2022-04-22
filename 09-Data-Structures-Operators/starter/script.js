@@ -1,8 +1,7 @@
 'use strict';
 
 // Data needed for a later exercise
-// const flights =
-//   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+
 // object literals  Enhancement (ES6)
 //3-we can compute proprety name
 // const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
@@ -439,3 +438,24 @@ const restaurant = {
 //   console.log(creditCard.slice(-4).padStart(creditCard.length, '#'));
 // };
 // MaskCreditCard(1234567891234567);
+
+// Exercice
+const flights =
+  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+
+for (let [i, flight] of flights.split('+').entries()) {
+  const flInfo = flight.replaceAll('_', ' ').trimStart().split(';');
+  console.log(
+    (
+      (i === 0 || i === 2 ? '🔴' : '') +
+      flInfo[0] +
+      ' from ' +
+      flInfo[1].slice(0, 3).toUpperCase() +
+      ' to ' +
+      flInfo[2].slice(0, 3).toUpperCase() +
+      ' at (' +
+      flInfo[3] +
+      ')'
+    ).padStart(47)
+  );
+}
