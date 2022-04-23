@@ -1,0 +1,5 @@
+Are functions which either take a function as an argument
+(the function as an argument is called a callback function)
+OR return a new function
+
+addEventListener is a high order function because it take a call back function as an argument
