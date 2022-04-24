@@ -1,65 +1,106 @@
 'use strict';
-// const bookings = [];
-// // default value of a parameter from ES6
-// const createBooking = function (
-//   flightNum,
-//   numPasswnger = 1,
-//   Price = 190 * numPasswnger
-// ) {
-//   // until ES5 default value are done like this
-//   //   numPasswnger = numPasswnger || 1;
-//   //   Price = Price || 150;
-//   const booking = {
-//     flightNum,
-//     numPasswnger,
-//     Price,
+//  function returns as a function
+// const greetWith = function (greet) {
+//   return function (name) {
+//     console.log(`${greet} ${name}`);
 //   };
-//   console.log(booking);
-//   bookings.push(booking);
 // };
-// createBooking('LH123');
-// createBooking('LXM15', 3, 255);
-// createBooking('GG23', 4);
-// // to skip a parameter w need to set it as undefined
-// // so it it has already a default value it will be assigned
-// createBooking('RR458', undefined, 780);
+// how the returned function remembers the argument passed to its parent function?
+// because of the closures, to be detailed n the following sessions!
+// the function returning function will be usefull in functional programming
+// const greetWithHello = greetWith('Hello');
+// greetWithHello('Amina');
 
-// // how passing arguments works? value Vs. reference
-
-// const flight = 'TZ455';
-// const amina = {
-//   fullName: 'Amina Ouj',
-//   passport: 457812,
+// creating a function calling another function using arrow functions
+// const greet = greeting => {
+//   name => console.log(`${greeting} ${name}`);
 // };
+// greet('Hola!')('Amina');
 
-// const checkIn = function (flightNum, passenger) {
-//   flightNum = 'KKK123';
-//   passenger.fullName = 'Mrs' + passenger.fullName;
-// };
-// // flight we passed is just a copy of the the primitive variable
-// // amina object is the reference of the reference variable
-// checkIn(flight, amina);
+const luftHanza = {
+  airline: 'Lufthanza',
+  iataCode: 'LH',
+  booking: [],
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode} ${flightNum}`
+    );
+    this.booking.push({
+      flight: `${this.iataCode}${flightNum}`,
+      name: ` ${name}`,
+    });
+  },
+};
+luftHanza.book(266, 'Amina Ouj');
+luftHanza.book(635, 'John Doe');
 
-const oneWord = function (str) {
-  return str.replaceAll(' ', '');
+const euroWings = {
+  airline: 'EuroWings',
+  iataCode: 'EW',
+  booking: [],
 };
 
-// console.log(oneWord('Mamma mia'));
+const book = luftHanza.book;
+// the following will generate an error
+// because the book is a function and not a method
+// and for regular function calls the "this" keyword is pointing to undefined in "strict mode"
+// book(222, 'Sari Cool');
+// to overcome it, we need to tell javascript explicitly to what the "this" keyword is pointing to
+// 1-by using the "call" Method, and specifying in the first argument what the "this" keyword is refering to
+// book.call(euroWings, 222, 'Sari Cool');
+book.call(luftHanza, 154, 'titif Ouj');
+// console.log(luftHanza);
 
-const upperFirstWord = function (str) {
-  const [first, ...rest] = str.split(' ');
-  return [first.toUpperCase(), ...rest].join(' ');
+const swiss = {
+  airline: 'Swiss Airline',
+  iataCode: 'SE',
+  booking: [],
 };
+// book.call(swiss, 777, 'Ziad Ouj');
+// console.log(swiss);
 
-// console.log(upperFirstWord('xml is interesting'));
-// high-order function (has a callback function as an argument)
-// Javascript uses callbacks functions all the time!
-// callback functions help us add another level of abstration. makes the code readable and organised
-const transformation = function (str, fn) {
-  console.log(`the string to transform: ${str}`);
-  console.log(`The transformed string is: ${fn(str)}`);
-  console.log(`the string is transformed by: ${fn.name}`);
+// 2-using the apply Method: it is not that used anymore in the modern Javascript
+// const flightData = [888, 'Fati fleur'];
+// book.apply(swiss, flightData);
+// console.log(swiss);
+// 3-the other best way is use the call method and all the arguments beside the "this" keyword as an array that we will spread in the "book.call" call
+// book.call(swiss, ...flightData);
+// console.log(swiss);
+// 4-another more usefull way is to 'bind' the book function to the object one time and wheneer we want to call the function all what we have to do is to give the argument without defining the "this" object each time
+
+const bookLH = book.bind(luftHanza);
+bookLH(777, 'Amato bolaylato');
+// const bookEW = book.bind(euroWings);
+// const bookSW = book.bind(swiss);
+// we can take it further by defining all the fixed argumwents for each call and specify them in thebind method
+// example if we want to book for the same flight number
+const bookLH154 = book.bind(luftHanza, 154);
+// and then we specify the rest of changing parameters in the bound function
+bookLH154('Stephen Lili');
+// console.log(luftHanza);
+// other situations where the bind method is vey usefull
+// when we use objects together with eventListeners
+luftHanza.planes = 300;
+luftHanza.buyPlane = function () {
+  console.log(this);
+  this.planes++;
+  console.log(this.planes);
 };
+// the this keyword from the "buyPlane" method is not pointing to the luftHanza object anymore
+// but it is pointing to the elemnt the event handler is attached to
+// so we need to redifine the "this" keyword here too! (this is a very useful usecase)
 
-transformation('xml is cool', upperFirstWord);
-transformation('xml is cool', oneWord);
+// document.querySelector('.buy').addEventListener('click', luftHanza.buyPlane);
+// const buyPlane = luftHanza.buyPlane;
+// document
+//   .querySelector('.buy')
+//   .addEventListener('click', luftHanza.buyPlane.bind(luftHanza));
+
+const addTax = (rate, value) => value + rate * value;
+// with bind method (partial application)
+const addTaxPrBind = addTax.bind(null, 0.23);
+console.log(addTaxPrBind(100));
+// using arrow function
+// const addTaxPrArr = value => addTax(0.23, value);
+
+console.log(addTaxPrArr(100));
