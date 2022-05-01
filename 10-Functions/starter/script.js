@@ -104,3 +104,11 @@ const addTax = (rate, value) => value + rate * value;
 // using arrow function
 // const addTaxPrArr = value => addTax(0.23, value);
 // console.log(addTaxPrArr(100));
+
+// this function will be executed once
+// it is called Immediately Invoked Function Expression IIFE
+(function () {
+  console.log('this function will never execute again');
+})();
+// the same but using the arrow function
+(() => console.log('this function will never execute again TOO'))();
