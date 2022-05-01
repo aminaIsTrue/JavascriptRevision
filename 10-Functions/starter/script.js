@@ -31,8 +31,8 @@ const luftHanza = {
     });
   },
 };
-luftHanza.book(266, 'Amina Ouj');
-luftHanza.book(635, 'John Doe');
+// luftHanza.book(266, 'Amina Ouj');
+// luftHanza.book(635, 'John Doe');
 
 const euroWings = {
   airline: 'EuroWings',
@@ -48,7 +48,7 @@ const book = luftHanza.book;
 // to overcome it, we need to tell javascript explicitly to what the "this" keyword is pointing to
 // 1-by using the "call" Method, and specifying in the first argument what the "this" keyword is refering to
 // book.call(euroWings, 222, 'Sari Cool');
-book.call(luftHanza, 154, 'titif Ouj');
+// book.call(luftHanza, 154, 'titif Ouj');
 // console.log(luftHanza);
 
 const swiss = {
@@ -69,14 +69,14 @@ const swiss = {
 // 4-another more usefull way is to 'bind' the book function to the object one time and wheneer we want to call the function all what we have to do is to give the argument without defining the "this" object each time
 
 const bookLH = book.bind(luftHanza);
-bookLH(777, 'Amato bolaylato');
+// bookLH(777, 'Amato bolaylato');
 // const bookEW = book.bind(euroWings);
 // const bookSW = book.bind(swiss);
 // we can take it further by defining all the fixed argumwents for each call and specify them in thebind method
 // example if we want to book for the same flight number
 const bookLH154 = book.bind(luftHanza, 154);
 // and then we specify the rest of changing parameters in the bound function
-bookLH154('Stephen Lili');
+// bookLH154('Stephen Lili');
 // console.log(luftHanza);
 // other situations where the bind method is vey usefull
 // when we use objects together with eventListeners
@@ -88,9 +88,9 @@ luftHanza.buyPlane = function () {
 };
 // the this keyword from the "buyPlane" method is not pointing to the luftHanza object anymore
 // but it is pointing to the elemnt the event handler is attached to
-// so we need to redifine the "this" keyword here too! (this is a very useful usecase)
 
 // document.querySelector('.buy').addEventListener('click', luftHanza.buyPlane);
+// so we need to redifine the "this" keyword here too! (this is a very useful usecase)
 // const buyPlane = luftHanza.buyPlane;
 // document
 //   .querySelector('.buy')
@@ -98,9 +98,9 @@ luftHanza.buyPlane = function () {
 
 const addTax = (rate, value) => value + rate * value;
 // with bind method (partial application)
-const addTaxPrBind = addTax.bind(null, 0.23);
-console.log(addTaxPrBind(100));
+// const addTaxPrBind = addTax.bind(null, 0.23);
+
+// console.log(addTaxPrBind(100));
 // using arrow function
 // const addTaxPrArr = value => addTax(0.23, value);
-
-console.log(addTaxPrArr(100));
+// console.log(addTaxPrArr(100));

@@ -2,4 +2,4 @@ it is a CONCEPT that can or can not be a feature in a programming language
 Javascript  has first class functions
 
 it means that this functions are considered as values
-thats why we can assign to a variable a function
+thats why we can assign this type of funcions to a variable a function
