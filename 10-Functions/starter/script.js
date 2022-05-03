@@ -107,8 +107,26 @@ const addTax = (rate, value) => value + rate * value;
 
 // this function will be executed once
 // it is called Immediately Invoked Function Expression IIFE
-(function () {
-  console.log('this function will never execute again');
-})();
-// the same but using the arrow function
-(() => console.log('this function will never execute again TOO'))();
+// (function () {
+//   console.log('this function will never execute again');
+// })();
+// // the same but using the arrow function
+// (() => console.log('this function will never execute again TOO'))();
+
+// closure
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+const booking = secureBooking();
+
+booking();
+booking();
+booking();
+console.dir(secureBooking);
+console.dir(booking);
