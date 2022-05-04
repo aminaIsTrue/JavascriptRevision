@@ -114,19 +114,19 @@ const addTax = (rate, value) => value + rate * value;
 // (() => console.log('this function will never execute again TOO'))();
 
 // closure
-const secureBooking = function () {
-  let passengerCount = 0;
+// const secureBooking = function () {
+//   let passengerCount = 0;
 
-  return function () {
-    passengerCount++;
-    console.log(`${passengerCount} passengers`);
-  };
-};
+//   return function () {
+//     passengerCount++;
+//     console.log(`${passengerCount} passengers`);
+//   };
+// };
 
-const booking = secureBooking();
+// const booking = secureBooking();
 
-booking();
-booking();
-booking();
-console.dir(secureBooking);
-console.dir(booking);
+// booking();
+// booking();
+// booking();
+// console.dir(secureBooking);
+// console.dir(booking);
