@@ -65,13 +65,13 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 let arr = ['a', 'b', 'c', 'd', 'e'];
@@ -87,8 +87,8 @@ let arr = ['a', 'b', 'c', 'd', 'e'];
 // arr.splice(1, 2);
 // console.log(arr);
 // the reverse methode mutate the original array
-const arr2 = ['j', 'i', 'h', 'g', 'f'];
-arr2.reverse();
+// const arr2 = ['j', 'i', 'h', 'g', 'f'];
+// arr2.reverse();
 // console.log(arr2);
 
 // CONCAT: does not mutate the array calling the method
@@ -98,12 +98,45 @@ arr2.reverse();
 // console.log(letters.join('-'));
 // AT: another way to reteurn a element of the array in a specific position. this method is implemented in ES2022
 // before we have this
-const arr3 = [15, 16, 17];
-console.log(arr3[0]);
+// const arr3 = [15, 16, 17];
+// console.log(arr3[0]);
 // and if we want to extract the last element we do this
-console.log(arr3[arr3.length - 1]);
+// console.log(arr3[arr3.length - 1]);
 // but now we can do it this way
-console.log(arr3.at(-1));
+// console.log(arr3.at(-1));
 
-// for each
-const movementss = [200, 450, -400, 3000, -650, -130, 70, 1300];
+//
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// without for each loop
+// for (const [i, movement] of movements.entries()) {
+//   if (movement > 0) console.log(`Movement ${i + 1} you deposited ${movement}`);
+//   else console.log(`Movement ${i + 1} you withdrew ${Math.abs(movement)}`);
+// }
+
+// using for each method (the order of the call back function paameters is important!)
+// !!! we can not beak from a forEch loop (continue and break does not work here)
+// console.log('___________forEach___________');
+// movements.forEach(function (movement, i, array) {
+//   if (movement > 0) console.log(`Movement ${i + 1} you deposited ${movement}`);
+//   else console.log(`Movement ${i + 1} you withdrew ${Math.abs(movement)}`);
+// });
+
+// forEach with maps
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+console.log('_____forEach with Maps');
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
+});
+
+// forEach with sets
+const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+console.log('_____forEach with sets');
+console.log(currenciesUnique);
+currenciesUnique.forEach(function (value, _value, map) {
+  console.log(`${value}: ${value}`);
+});
