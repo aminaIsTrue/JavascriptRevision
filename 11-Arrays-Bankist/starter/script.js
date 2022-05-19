@@ -7,7 +7,7 @@
 // Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
-  // movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
 };
@@ -61,17 +61,39 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+// display the movements
+// put the code in function so to not to clutter the global context
+const displayBankMovements = function (movements) {
+  containerMovements.innerHTML = '';
+  movements.forEach(function (movement, i, arr) {
+    const typeMovement = movement > 0 ? 'deposit' : 'withdrawal';
+
+    const html = `
+                  <div class="movements__row">
+                    <div class="movements__type movements__type--${typeMovement}">${
+      i + 1
+    } ${typeMovement}</div>
+                    <div class="movements__date">3 days ago</div>
+                    <div class="movements__value">${movement}</div>
+                  </div>
+                  `;
+    console.log(html);
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+displayBankMovements(account2.movements);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
-// const currencies = new Map([
-//   ['USD', 'United States dollar'],
-//   ['EUR', 'Euro'],
-//   ['GBP', 'Pound sterling'],
-// ]);
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 let arr = ['a', 'b', 'c', 'd', 'e'];
@@ -106,7 +128,7 @@ let arr = ['a', 'b', 'c', 'd', 'e'];
 // console.log(arr3.at(-1));
 
 //
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // without for each loop
 // for (const [i, movement] of movements.entries()) {
@@ -123,20 +145,20 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // });
 
 // forEach with maps
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
-console.log('_____forEach with Maps');
-currencies.forEach(function (value, key, map) {
-  console.log(`${key}: ${value}`);
-});
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
+// console.log('_____forEach with Maps');
+// currencies.forEach(function (value, key, map) {
+//   console.log(`${key}: ${value}`);
+// });
 
-// forEach with sets
-const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
-console.log('_____forEach with sets');
-console.log(currenciesUnique);
-currenciesUnique.forEach(function (value, _value, map) {
-  console.log(`${value}: ${value}`);
-});
+// // forEach with sets
+// const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+// console.log('_____forEach with sets');
+// console.log(currenciesUnique);
+// currenciesUnique.forEach(function (value, _value, map) {
+//   console.log(`${value}: ${value}`);
+// });
