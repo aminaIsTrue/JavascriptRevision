@@ -77,11 +77,45 @@ const displayBankMovements = function (movements) {
                     <div class="movements__value">${movement}</div>
                   </div>
                   `;
-    console.log(html);
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
 displayBankMovements(account2.movements);
+
+// compute username //
+
+// const CreateUsername = function (user) {
+//   return user
+//     .toLowerCase()
+//     .split(' ')
+//     .map(u => u[0])
+//     .join('');
+// };
+// console.log(username('amina ouj'));
+
+// generalize username computation
+const accountsUsername = accounts.map(function (account) {
+  return account.owner
+    .toLowerCase()
+    .split(' ')
+    .map(u => u[0])
+    .join('');
+});
+
+// console.log(accountsUsername);
+
+// for each if we want to add a username attribute to the accounts
+const generateUsernames = function (accounts) {
+  accounts.forEach(function (account) {
+    account.username = account.owner
+      .toLowerCase()
+      .split(' ')
+      .map(u => u[0])
+      .join('');
+  });
+};
+generateUsernames(accounts);
+// console.log(account1);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -94,6 +128,21 @@ const currencies = new Map([
 ]);
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+//  the filter method (just the deposits from  the movements array) //
+const deposits = movements.filter(mov => mov > 0);
+console.log(deposits);
+//  the filter method (just the withdrawals from  the movements array) //
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
+
+// the reduce method (to calculate the global balance resulting from addin up all the movements) //
+//  this callback function of this method has for parameters: the first one is an accumilator
+// the reduce method has 2 parameters: the callback function and the initial value that the accumlator forom the callback function needs to start
+const globalBalence = deposits.reduce(
+  (acc, mov, i, movmnts) => (acc += mov),
+  0
+);
+console.log(globalBalence);
 
 /////////////////////////////////////////////////
 let arr = ['a', 'b', 'c', 'd', 'e'];
@@ -162,3 +211,27 @@ let arr = ['a', 'b', 'c', 'd', 'e'];
 // currenciesUnique.forEach(function (value, _value, map) {
 //   console.log(`${value}: ${value}`);
 // });
+// Map method
+const euroToUsd = 1.1;
+// const movementsUSD = movements.map(function (mov) {
+//   return mov * euroToUsd;
+// });
+//  using arrow function
+const movementsUSD = movements.map(mov => mov * euroToUsd);
+
+// console.log(movements);
+// console.log(movementsUSD);
+
+// const MovementsDesc = movements.map((movement, i, array) => {
+//   if (movement > 0) return `Movement ${i + 1} you deposited ${movement}`;
+//   else return `Movement ${i + 1} you withdrew ${Math.abs(movement)}`;
+// });
+
+// simplifying the previous code
+const MovementsDesc = movements.map(
+  (movement, i) =>
+    `Movement ${i + 1} you ${
+      movement > 0 ? 'deposited' : 'withdrew'
+    } ${Math.abs(movement)}`
+);
+// console.log(MovementsDesc);
