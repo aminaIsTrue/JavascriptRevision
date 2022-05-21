@@ -80,7 +80,16 @@ const displayBankMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayBankMovements(account2.movements);
+displayBankMovements(account1.movements);
+//  display the balance: The best is to alwys wrap the  code in a function//
+const calcBalance = function (movements) {
+  const globalBalence = movements.reduce(
+    (acc, mov, i, movmnts) => (acc += mov),
+    0
+  );
+  labelBalance.textContent = `${globalBalence} €`;
+};
+calcBalance(account1.movements);
 
 // compute username //
 
@@ -130,19 +139,27 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //  the filter method (just the deposits from  the movements array) //
 const deposits = movements.filter(mov => mov > 0);
-console.log(deposits);
+// console.log(deposits);
+
 //  the filter method (just the withdrawals from  the movements array) //
 const withdrawals = movements.filter(mov => mov < 0);
-console.log(withdrawals);
+// console.log(withdrawals);
 
 // the reduce method (to calculate the global balance resulting from addin up all the movements) //
 //  this callback function of this method has for parameters: the first one is an accumilator
 // the reduce method has 2 parameters: the callback function and the initial value that the accumlator forom the callback function needs to start
-const globalBalence = deposits.reduce(
-  (acc, mov, i, movmnts) => (acc += mov),
-  0
-);
-console.log(globalBalence);
+// const globalBalence = deposits.reduce(
+//   (acc, mov, i, movmnts) => (acc += mov),
+//   0
+// );
+// console.log(globalBalence);
+
+// using reduce to calculate the max//
+const maxMovement = movements.reduce((acc, mov) => {
+  // console.log(acc, mov);
+  return acc > mov ? acc : mov;
+}, movements[0]);
+// console.log(maxMovement);
 
 /////////////////////////////////////////////////
 let arr = ['a', 'b', 'c', 'd', 'e'];
