@@ -23,18 +23,18 @@ const calcDogsHumanAge = function (dogAgaes) {
   return humanAges;
 };
 const humanDogsAges = calcDogsHumanAge([1, 2, 3]);
-console.log(humanDogsAges);
+// console.log(humanDogsAges);
 // 2-
 const excludDogs = function (dogAges) {
   const remainedDogsAges = dogAges.filter(dogAge => dogAge > 18);
   return remainedDogsAges;
 };
-console.log(excludDogs(humanDogsAges));
+// console.log(excludDogs(humanDogsAges));
+
 // 3-
 
 const averageDogsHumanAge = function (dogsAges) {
-  const sumAge = dogsAges.reduce((acc, dogAge) => (acc += dogAge), 0);
-  return sumAge / dogsAges.length;
+  dogsAges.reduce((acc, dogAge, i, arr) => acc + dogAge / arr.length, 0);
 };
 
-console.log(averageDogsHumanAge(humanDogsAges));
+// console.log(averageDogsHumanAge([1, 2, 3, 4]));

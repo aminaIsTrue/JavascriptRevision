@@ -34,6 +34,18 @@ const account4 = {
 };
 
 const accounts = [account1, account2, account3, account4];
+// the find method
+const AccountJes = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(AccountJes);
+// find the same account using for of method
+let AccountJesFor;
+for (const account of accounts) {
+  if (account.owner === 'Jessica Davis') {
+    AccountJesFor = account;
+    break;
+  } else continue;
+}
+console.log(AccountJesFor);
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -74,7 +86,7 @@ const displayBankMovements = function (movements) {
       i + 1
     } ${typeMovement}</div>
                     <div class="movements__date">3 days ago</div>
-                    <div class="movements__value">${movement}</div>
+                    <div class="movements__value">${movement}€</div>
                   </div>
                   `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -87,9 +99,32 @@ const calcBalance = function (movements) {
     (acc, mov, i, movmnts) => (acc += mov),
     0
   );
-  labelBalance.textContent = `${globalBalence} €`;
+  labelBalance.textContent = `${globalBalence}€`;
 };
 calcBalance(account1.movements);
+
+const displayBankSummary = function (movements) {
+  // summary Deposits
+  const sumDeposit = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => (acc += mov));
+  // console.log(sumDeposit);
+  labelSumIn.textContent = `${sumDeposit}€`;
+  // summury withdrawel
+  const sumWithdrawal = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => (acc += mov));
+  labelSumOut.textContent = `${Math.abs(sumWithdrawal)}€`;
+
+  // deposit interest
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(dep => (dep * 1.2) / 100)
+    .filter(interest => interest > 1)
+    .reduce((acc, interest) => acc + interest);
+  labelSumInterest.textContent = `${interest}€`;
+};
+displayBankSummary(account1.movements);
 
 // compute username //
 
@@ -138,8 +173,15 @@ const currencies = new Map([
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //  the filter method (just the deposits from  the movements array) //
-const deposits = movements.filter(mov => mov > 0);
-// console.log(deposits);
+// const deposits = movements.filter(mov => mov > 0);
+// chaining the map, filter and rduce methods
+
+const SumDepositsInEur = movements
+  .filter(mov => mov > 0)
+  .map(dep => dep * 0.99)
+  .reduce((acc, dep) => (acc += dep), 0);
+
+// console.log(`${SumDepositsInEur} €`);
 
 //  the filter method (just the withdrawals from  the movements array) //
 const withdrawals = movements.filter(mov => mov < 0);
