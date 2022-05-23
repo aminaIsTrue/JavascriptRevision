@@ -36,16 +36,16 @@ const account4 = {
 const accounts = [account1, account2, account3, account4];
 // the find method
 const AccountJes = accounts.find(acc => acc.owner === 'Jessica Davis');
-console.log(AccountJes);
+// console.log(AccountJes);
 // find the same account using for of method
-let AccountJesFor;
-for (const account of accounts) {
-  if (account.owner === 'Jessica Davis') {
-    AccountJesFor = account;
-    break;
-  } else continue;
-}
-console.log(AccountJesFor);
+// let AccountJesFor;
+// for (const account of accounts) {
+//   if (account.owner === 'Jessica Davis') {
+//     AccountJesFor = account;
+//     break;
+//   } else continue;
+// }
+// console.log(AccountJesFor);
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -92,7 +92,7 @@ const displayBankMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayBankMovements(account1.movements);
+// displayBankMovements(account1.movements);
 //  display the balance: The best is to alwys wrap the  code in a function//
 const calcBalance = function (movements) {
   const globalBalence = movements.reduce(
@@ -101,7 +101,7 @@ const calcBalance = function (movements) {
   );
   labelBalance.textContent = `${globalBalence}€`;
 };
-calcBalance(account1.movements);
+// calcBalance(account1.movements);
 
 const displayBankSummary = function (movements) {
   // summary Deposits
@@ -124,7 +124,7 @@ const displayBankSummary = function (movements) {
     .reduce((acc, interest) => acc + interest);
   labelSumInterest.textContent = `${interest}€`;
 };
-displayBankSummary(account1.movements);
+// displayBankSummary(account1.movements);
 
 // compute username //
 
@@ -148,7 +148,7 @@ const accountsUsername = accounts.map(function (account) {
 
 // console.log(accountsUsername);
 
-// for each if we want to add a username attribute to the accounts
+// for each account if we want to add a username attribute to the accounts
 const generateUsernames = function (accounts) {
   accounts.forEach(function (account) {
     account.username = account.owner
@@ -160,6 +160,27 @@ const generateUsernames = function (accounts) {
 };
 generateUsernames(accounts);
 // console.log(account1);
+// Event Handler for implementing the login functio
+// in forms the hitting of the enter button ot cliking on the submit button both trigger the click event
+// the user that wants to be logged in need to be declared globally so because this ino will be useful for different functions
+let currentUser;
+btnLogin.addEventListener('click', function (e) {
+  // prevent the form from reloading
+  e.preventDefault();
+  // find the account with the entered credentials
+  currentUser = accounts.find(
+    acc =>
+      acc.username === inputLoginUsername.value &&
+      acc.pin === Number(inputLoginPin.value)
+  );
+  console.log(currentUser);
+  // if exists display their display:(bankmovements, global balance, and bank summary)
+  if (currentUser) {
+    displayBankMovements(currentUser.movements);
+    calcBalance(currentUser.movements);
+    displayBankSummary(currentUser.movements);
+  }
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
