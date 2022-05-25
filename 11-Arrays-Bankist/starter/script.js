@@ -94,32 +94,30 @@ const displayBankMovements = function (movements) {
 };
 // displayBankMovements(account1.movements);
 //  display the balance: The best is to alwys wrap the  code in a function//
-const calcBalance = function (movements) {
-  const globalBalence = movements.reduce(
-    (acc, mov, i, movmnts) => (acc += mov),
-    0
-  );
+const calcBalance = function (account) {
+  const globalBalence = account.movements.reduce((acc, mov) => (acc += mov), 0);
+  account.balance = globalBalence;
   labelBalance.textContent = `${globalBalence}€`;
 };
 // calcBalance(account1.movements);
 
-const displayBankSummary = function (movements) {
+const displayBankSummary = function (account) {
   // summary Deposits
-  const sumDeposit = movements
+  const sumDeposit = account.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => (acc += mov));
   // console.log(sumDeposit);
   labelSumIn.textContent = `${sumDeposit}€`;
   // summury withdrawel
-  const sumWithdrawal = movements
+  const sumWithdrawal = account.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => (acc += mov));
   labelSumOut.textContent = `${Math.abs(sumWithdrawal)}€`;
 
   // deposit interest
-  const interest = movements
+  const interest = account.movements
     .filter(mov => mov > 0)
-    .map(dep => (dep * 1.2) / 100)
+    .map(dep => (dep * account.interestRate) / 100)
     .filter(interest => interest > 1)
     .reduce((acc, interest) => acc + interest);
   labelSumInterest.textContent = `${interest}€`;
@@ -159,8 +157,15 @@ const generateUsernames = function (accounts) {
   });
 };
 generateUsernames(accounts);
+
+const updateUI = function (acc) {
+  displayBankMovements(acc.movements);
+  calcBalance(acc);
+  displayBankSummary(acc);
+};
 // console.log(account1);
-// Event Handler for implementing the login functio
+
+// implementing the login function
 // in forms the hitting of the enter button ot cliking on the submit button both trigger the click event
 // the user that wants to be logged in need to be declared globally so because this ino will be useful for different functions
 let currentUser;
@@ -176,10 +181,40 @@ btnLogin.addEventListener('click', function (e) {
   console.log(currentUser);
   // if exists display their display:(bankmovements, global balance, and bank summary)
   if (currentUser) {
-    displayBankMovements(currentUser.movements);
-    calcBalance(currentUser.movements);
-    displayBankSummary(currentUser.movements);
+    // clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+    // display welcome message
+    labelWelcome.textContent = `Welcome back, ${
+      currentUser.owner.split(' ')[0]
+    }`;
+    updateUI(currentUser);
+    containerApp.style.opacity = 100;
   }
+});
+// implementing the transfer function
+
+btnTransfer.addEventListener('click', function (e) {
+  // prevent the form from reloading
+  e.preventDefault();
+  const transferToAccount = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+  const transferAmmount = Number(inputTransferAmount.value);
+  // ammount not negative, persone has enough balance. not transfereing to herself
+  if (
+    currentUser.balance >= transferAmmount &&
+    transferToAccount &&
+    transferAmmount > 0 &&
+    transferToAccount.username !== currentUser.username
+  ) {
+    transferToAccount.movements.push(transferAmmount) &&
+      currentUser.movements.push(-transferAmmount);
+    updateUI(currentUser);
+  }
+  inputTransferAmount.value = inputTransferTo.value = '';
+  inputTransferAmount.blur();
+  console.log(currentUser);
 });
 
 /////////////////////////////////////////////////
