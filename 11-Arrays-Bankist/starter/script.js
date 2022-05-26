@@ -178,7 +178,7 @@ btnLogin.addEventListener('click', function (e) {
       acc.username === inputLoginUsername.value &&
       acc.pin === Number(inputLoginPin.value)
   );
-  console.log(currentUser);
+  // console.log(currentUser);
   // if exists display their display:(bankmovements, global balance, and bank summary)
   if (currentUser) {
     // clear input fields
@@ -215,6 +215,40 @@ btnTransfer.addEventListener('click', function (e) {
   inputTransferAmount.value = inputTransferTo.value = '';
   inputTransferAmount.blur();
   console.log(currentUser);
+});
+
+// implement loan request
+
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  // bank accepts a loan if the person has at least one deposit with at least 10% of the amount of the loan requested
+  const loanRequested = Number(inputLoanAmount.value);
+  inputLoanAmount.value = '';
+  inputLoanAmount.blur();
+  loanRequested > 0 &&
+    currentUser.movements.some(mov => mov >= (loanRequested * 10) / 100) &&
+    currentUser.movements.push(loanRequested);
+  updateUI(currentUser);
+});
+
+// close an account
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  const username = inputCloseUsername.value;
+  const pin = Number(inputClosePin.value);
+  if (username === currentUser.username && pin === currentUser.pin) {
+    const indexAccount = accounts.findIndex(
+      acc =>
+        acc.username === currentUser.username && acc.pin === currentUser.pin
+    );
+
+    accounts.splice(indexAccount, 1);
+    console.log(accounts);
+    containerApp.style.opacity = 0;
+  }
+  inputClosePin.value = inputCloseUsername.value = '';
+  inputClosePin.blur();
 });
 
 /////////////////////////////////////////////////
@@ -350,3 +384,10 @@ const MovementsDesc = movements.map(
     } ${Math.abs(movement)}`
 );
 // console.log(MovementsDesc);
+
+// every ia an array method that returns true if all objects calling it satisfy the wanted condition
+
+// here it returns false because the movents array contain deposits and withdrawals
+console.log(movements.every(mov => mov >= 0));
+// here it returns true because all movements are deposits
+console.log(account4.movements.every(mov => mov >= 0));
