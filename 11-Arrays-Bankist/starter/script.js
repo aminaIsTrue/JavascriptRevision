@@ -231,6 +231,24 @@ btnLoan.addEventListener('click', function (e) {
   updateUI(currentUser);
 });
 
+// sorting the current user movements
+let flag = false;
+btnSort.addEventListener('click', function () {
+  const copyMovements = currentUser.movements.slice();
+  // if (flag) {
+  //   displayBankMovements(currentUser.movements);
+  //   flag = false;
+  // } else {
+  //   displayBankMovements(copyMovements.sort((a, b) => a - b));
+  //   flag = true;
+  // }
+
+  flag
+    ? displayBankMovements(currentUser.movements)
+    : displayBankMovements(copyMovements.sort((a, b) => a - b));
+  flag = !flag;
+});
+
 // close an account
 
 btnClose.addEventListener('click', function (e) {
@@ -391,3 +409,24 @@ const MovementsDesc = movements.map(
 console.log(movements.every(mov => mov >= 0));
 // here it returns true because all movements are deposits
 console.log(account4.movements.every(mov => mov >= 0));
+
+// flat method: flatten a nested array
+// the argument of the flat method  indicate the deep degree of flatening if we have several nesting levels in the array
+
+// const accounts = [account1, account2, account3, account4];
+
+// const accountsMovements = [
+//   account1.movements,
+//   account2.movements,
+//   account3.movements,
+//   account4.movements,
+// ];
+// or we use the map method: better!
+const accountsMovements = accounts.map(acc => acc.movements);
+console.log(accountsMovements.flat());
+console.log(accountsMovements.flat().reduce((acc, mov) => acc + mov, 0));
+
+// we use flatMap() to map then to flat the array if we have just one level of the nested arrays
+console.log(
+  accounts.flatMap(acc => acc.movements).reduce((acc, mov) => acc + mov, 0)
+);
