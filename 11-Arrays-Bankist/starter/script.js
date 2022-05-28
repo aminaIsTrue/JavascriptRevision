@@ -190,6 +190,12 @@ btnLogin.addEventListener('click', function (e) {
     }`;
     updateUI(currentUser);
     containerApp.style.opacity = 100;
+    // extract movements from movement container
+    const movDivs = document.querySelectorAll('.movements__value');
+    const valuesInDivs = Array.from(movDivs, div =>
+      Number(div.textContent.replace('€', '').replace(' ', ''))
+    );
+    console.log(valuesInDivs);
   }
 });
 // implementing the transfer function
@@ -430,3 +436,21 @@ console.log(accountsMovements.flat().reduce((acc, mov) => acc + mov, 0));
 console.log(
   accounts.flatMap(acc => acc.movements).reduce((acc, mov) => acc + mov, 0)
 );
+
+// creating arrays programaticaly
+// 1- new arrays
+const arr1 = Array.from(
+  { length: 100 },
+  (_cur, i) => Math.trunc(Math.random() * 6) + 1
+);
+console.log(arr1);
+// 2- from iterables
+const movDivs = document.querySelectorAll('.movements__value');
+const valuesInDivs = Array.from(movDivs, div =>
+  Number(div.textContent.replace('€', '').replace(' ', ''))
+);
+console.log(valuesInDivs);
+// const movmnts = valuesInDivs.map(div =>
+//   Number(div.textContent.replace('€', '').replace(' ', ''))
+// );
+// console.log(movmnts);
