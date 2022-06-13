@@ -260,8 +260,8 @@ btnLogin.addEventListener('click', function (e) {
       day: 'numeric',
       month: 'long',
       year: '2-digit',
-      hours: 'numeric',
-      minutes: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
     };
     labelDate.textContent = new Intl.DateTimeFormat(
       currentUser.locale,
@@ -310,15 +310,17 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
   // bank accepts a loan if the person has at least one deposit with at least 10% of the amount of the loan requested
-  const loanRequested = Math.floor(inputLoanAmount.value);
-  const dayMovement = new Date().toDateString();
-  inputLoanAmount.value = '';
-  inputLoanAmount.blur();
-  loanRequested > 0 &&
-    currentUser.movements.some(mov => mov >= (loanRequested * 10) / 100) &&
-    currentUser.movements.push(loanRequested) &&
-    currentUser.movementsDates.push(dayMovement);
-  updateUI(currentUser);
+  setTimeout(() => {
+    const loanRequested = Math.floor(inputLoanAmount.value);
+    const dayMovement = new Date().toDateString();
+    inputLoanAmount.value = '';
+    inputLoanAmount.blur();
+    loanRequested > 0 &&
+      currentUser.movements.some(mov => mov >= (loanRequested * 10) / 100) &&
+      currentUser.movements.push(loanRequested) &&
+      currentUser.movementsDates.push(dayMovement);
+    updateUI(currentUser);
+  }, 3000);
 });
 
 // sorting the current user movements
@@ -628,3 +630,16 @@ console.log(new Date(account1.movementsDates[0]));
 //   2,
 //   '0'
 // )}:${String(today.getMinutes()).padStart(2, '0')}`;
+
+setInterval(() => {
+  const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+  };
+  const formattedDate = new Intl.DateTimeFormat(
+    navigator.language,
+    options
+  ).format(new Date());
+  console.log(formattedDate);
+}, 1000);
