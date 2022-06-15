@@ -101,6 +101,33 @@ const formatNumber = function (value, locale, currency) {
   const options = { style: 'currency', currency: currency };
   return new Intl.NumberFormat(locale, options).format(value);
 };
+
+const startLogoutTimer = function () {
+  // set time to 5 min
+  // clear any running timer
+
+  let time = 10;
+  const tick = function () {
+    let min = String(Math.trunc(time / 60)).padStart(2, 0);
+    let sec = String(time % 60).padStart(2, 0);
+    if (time >= 0) {
+      labelTimer.textContent = `${min}:${sec}`;
+      time--;
+    } else {
+      // logout
+      clearInterval(timer);
+      containerApp.style.opacity = 0;
+      labelWelcome.textContent = 'Log in to get started';
+    }
+  };
+  tick();
+  //call the timer every second
+  const timer = setInterval(tick, 1000);
+  return timer;
+
+  // in each time, print the remaining time to the UI
+  // if the time reaches 0 seconds logout the user
+};
 // display the movements
 // put the code in function so to not to clutter the global context
 const displayBankMovements = function (acc) {
@@ -227,9 +254,9 @@ const updateUI = function (acc) {
 // implementing the login function
 // in forms the hitting of the enter button ot cliking on the submit button both trigger the click event
 // the user that wants to be logged in need to be declared globally so because this ino will be useful for different functions
-let currentUser;
+let currentUser, timer;
 // fake log in /////
-currentUser = account1;
+// currentUser = account1;
 // updateUI(account1);
 // containerApp.style.opacity = 100;
 
@@ -246,6 +273,9 @@ btnLogin.addEventListener('click', function (e) {
   // console.log(currentUser);
   // if exists display their display:(bankmovements, global balance, and bank summary)
   if (currentUser) {
+    if (timer > 0) clearInterval(timer);
+    timer = startLogoutTimer();
+
     // clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
@@ -302,7 +332,9 @@ btnTransfer.addEventListener('click', function (e) {
   }
   inputTransferAmount.value = inputTransferTo.value = '';
   inputTransferAmount.blur();
-  console.log(currentUser);
+  // reset timer
+  clearInterval(timer);
+  timer = startLogoutTimer();
 });
 
 // implement loan request
@@ -319,8 +351,12 @@ btnLoan.addEventListener('click', function (e) {
       currentUser.movements.some(mov => mov >= (loanRequested * 10) / 100) &&
       currentUser.movements.push(loanRequested) &&
       currentUser.movementsDates.push(dayMovement);
+
     updateUI(currentUser);
   }, 3000);
+  // reset the timer
+  clearInterval(timer);
+  timer = startLogoutTimer();
 });
 
 // sorting the current user movements
@@ -631,15 +667,14 @@ console.log(new Date(account1.movementsDates[0]));
 //   '0'
 // )}:${String(today.getMinutes()).padStart(2, '0')}`;
 
-setInterval(() => {
-  const options = {
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-  };
-  const formattedDate = new Intl.DateTimeFormat(
-    navigator.language,
-    options
-  ).format(new Date());
-  console.log(formattedDate);
-}, 1000);
+// setInterval(() => {
+//   const options = {
+//     minute: 'numeric',
+//     second: 'numeric',
+//   };
+//   const formattedDate = new Intl.DateTimeFormat(
+//     navigator.language,
+//     options
+//   ).format(new Date());
+//   console.log(formattedDate);
+// }, 1000);
