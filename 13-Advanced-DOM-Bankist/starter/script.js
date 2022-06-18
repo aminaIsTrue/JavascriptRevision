@@ -74,16 +74,16 @@ message.style.backgroundColor = '#37383d';
 message.style.width = '120%';
 // shows just inline styles
 // height will be empty, width will show 120%
-console.log(message.style.height);
-console.log(message.style.width);
+// console.log(message.style.height);
+// console.log(message.style.width);
 //  if we want to show the style of an element from the web page (javascript automatically computes the style value)
-console.log(getComputedStyle(message).height);
+// console.log(getComputedStyle(message).height);
 
 // change the height
 
 message.style.height =
   Number.parseFloat(getComputedStyle(message).height) + 20 + 'px';
-console.log(message.style.height);
+// console.log(message.style.height);
 
 //
 document.documentElement.style.setProperty('--color-primary', 'orangered');
@@ -91,19 +91,44 @@ document.documentElement.style.setProperty('--color-primary', 'orangered');
 const logo = document.querySelector('.nav__logo');
 
 // shows the absolute path
-console.log(logo.src);
+// console.log(logo.src);
 
 // shows the relative path
-console.log(logo.getAttribute('src'));
+// console.log(logo.getAttribute('src'));
 
 // change a value of a predefined tag attribute
 console.log(logo.alt);
 logo.alt = 'This is the logo of my website';
-console.log(logo.alt);
+// console.log(logo.alt);
 
 // add an attribute to a tag (predefined or not)
 logo.setAttribute('designer', 'Amina');
 // will return undefined since the designer is not a predefined image tag attributes
-console.log(logo.designer);
+// console.log(logo.designer);
 //
-console.log(logo.getAttribute('designer'));
+// console.log(logo.getAttribute('designer'));
+
+// Iplementing scrolling
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function () {
+  // get the coordinates of the bsection to scroll to
+  const sectionCoordinates = section.getBoundingClientRect();
+
+  // 1- scroll to section
+  // window.scrollTo(
+  //   sectionCoordinates.left + window.pageXOffset,
+  //   sectionCoordinates.top + window.pageYOffset
+  // );
+  // 2- scroll to section with behavior
+  // window.scrollTo({
+  //   left: sectionCoordinates.left + window.pageXOffset,
+  //   top: sectionCoordinates.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  // 3- scroll to section with behavior (MODERN & EASY WAY)
+  section.scrollIntoView({ behavior: 'smooth' });
+});
