@@ -132,3 +132,44 @@ btnScrollTo.addEventListener('click', function () {
   // 3- scroll to section with behavior (MODERN & EASY WAY)
   section.scrollIntoView({ behavior: 'smooth' });
 });
+
+//
+const h1 = document.querySelector('h1');
+const h1Hover = e => {
+  alert('you hover over h1!');
+};
+h1.addEventListener('mouseenter', h1Hover);
+setInterval(() => {
+  h1.removeEventListener('mouseenter', h1Hover);
+}, 10000);
+// rgb(255,255,255)
+
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+console.log(randomInt(0, 255));
+// console.log(
+//   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`
+// );
+
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  // console.log('Link');
+  this.style.backgroundColor = `rgb(${randomInt(0, 255)},${randomInt(
+    0,
+    255
+  )},${randomInt(0, 255)})`;
+});
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  // console.log('Link');
+  this.style.backgroundColor = `rgb(${randomInt(0, 255)},${randomInt(
+    0,
+    255
+  )},${randomInt(0, 255)})`;
+});
+
+document.querySelector('.nav').addEventListener('click', function (e) {
+  // console.log('Link');
+  this.style.backgroundColor = `rgb(${randomInt(0, 255)},${randomInt(
+    0,
+    255
+  )},${randomInt(0, 255)})`;
+});
