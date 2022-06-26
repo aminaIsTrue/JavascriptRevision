@@ -86,7 +86,7 @@ message.style.height =
 // console.log(message.style.height);
 
 //
-document.documentElement.style.setProperty('--color-primary', 'orangered');
+// document.documentElement.style.setProperty('--color-primary', 'orangered');
 
 const logo = document.querySelector('.nav__logo');
 
@@ -97,7 +97,7 @@ const logo = document.querySelector('.nav__logo');
 // console.log(logo.getAttribute('src'));
 
 // change a value of a predefined tag attribute
-console.log(logo.alt);
+// console.log(logo.alt);
 logo.alt = 'This is the logo of my website';
 // console.log(logo.alt);
 
@@ -138,38 +138,132 @@ const h1 = document.querySelector('h1');
 const h1Hover = e => {
   alert('you hover over h1!');
 };
-h1.addEventListener('mouseenter', h1Hover);
-setInterval(() => {
-  h1.removeEventListener('mouseenter', h1Hover);
-}, 10000);
+// h1.addEventListener('mouseenter', h1Hover);
+// setInterval(() => {
+//   h1.removeEventListener('mouseenter', h1Hover);
+// }, 10000);
 // rgb(255,255,255)
 
 const randomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
-console.log(randomInt(0, 255));
+// console.log(randomInt(0, 255));
 // console.log(
 //   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`
 // );
 
-document.querySelector('.nav__link').addEventListener('click', function (e) {
-  // console.log('Link');
-  this.style.backgroundColor = `rgb(${randomInt(0, 255)},${randomInt(
-    0,
-    255
-  )},${randomInt(0, 255)})`;
-});
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   // console.log('Link');
+//   this.style.backgroundColor = `rgb(${randomInt(0, 255)},${randomInt(
+//     0,
+//     255
+//   )},${randomInt(0, 255)})`;
+// });
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   // console.log('Link');
+//   this.style.backgroundColor = `rgb(${randomInt(0, 255)},${randomInt(
+//     0,
+//     255
+//   )},${randomInt(0, 255)})`;
+// });
+
+// document.querySelector('.nav').addEventListener('click', function (e) {
+//   // console.log('Link');
+//   this.style.backgroundColor = `rgb(${randomInt(0, 255)},${randomInt(
+//     0,
+//     255
+//   )},${randomInt(0, 255)})`;
+// });
+
+// implement page navigation using event delegation
+// Slotion 1: without using event delegation
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     const section = document.querySelector(`${id}`);
+//     section.scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+// // Slotion 2:  using event delegation
+//    1-add event listener to the common parent
 document.querySelector('.nav__links').addEventListener('click', function (e) {
-  // console.log('Link');
-  this.style.backgroundColor = `rgb(${randomInt(0, 255)},${randomInt(
-    0,
-    255
-  )},${randomInt(0, 255)})`;
+  e.preventDefault();
+  //   2-determine which child originated the event click
+  const targetEl = e.target;
+  if (targetEl.classList.contains('nav__link')) {
+    const id = targetEl.getAttribute('href');
+    const section = document.querySelector(`${id}`);
+    section.scrollIntoView({ behavior: 'smooth' });
+    // console.log(section);
+  }
 });
 
-document.querySelector('.nav').addEventListener('click', function (e) {
-  // console.log('Link');
-  this.style.backgroundColor = `rgb(${randomInt(0, 255)},${randomInt(
-    0,
-    255
-  )},${randomInt(0, 255)})`;
+// create a tabbed component
+
+// selcet the tabs,container, content areas
+
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const contentAreas = document.querySelectorAll('.operations__content');
+// add event handler for the 3 components
+
+tabsContainer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const tab = e.target.closest('button');
+  if (tab) {
+    // determin which tab selected
+    const dataTab = tab.getAttribute('data-tab');
+    console.log(dataTab);
+    // select its adequate content area
+    const contentArea = document.querySelector(
+      `.operations__content--${dataTab}`
+    );
+    // remove active class from all content areas and tabs
+    tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+    contentAreas.forEach(el =>
+      el.classList.remove('operations__content--active')
+    );
+    // make the content area and the button active only for the one clicked
+    contentArea.classList.add('operations__content--active');
+    tab.classList.add('operations__tab--active');
+  }
+});
+
+// create a menue fade animation
+
+// select the nav bar
+
+const navBar = document.querySelector('.nav');
+// attach event listerner to oppost events (mouseover, mousout)
+// because when the mouse is over a link means it is out of all the other nav links
+
+const navMngmnt = function (e, opacity) {
+  console.log(this, e.currentTarget);
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const links = link.closest('.nav').querySelectorAll('.nav__link');
+    const img = link.closest('.nav').querySelector('img');
+    // change the opacity of the other siblings
+
+    links.forEach(el => {
+      if (el != link) {
+        el.style.opacity = this;
+        img.style.opacity = this;
+      }
+    });
+  }
+};
+navBar.addEventListener('mouseover', navMngmnt.bind(0.3));
+navBar.addEventListener('mouseout', navMngmnt.bind(1));
+
+// implementing sticky navogation starting from section 1
+// solution 1: implementing scroll event(not the optimal solution as the event is fired in every scroll)
+// section 1 cordinates
+const initialScroll = section.getBoundingClientRect().top;
+window.addEventListener('scroll', function (e) {
+  if (window.scrollY >= initialScroll) {
+    navBar.classList.add('sticky');
+  } else {
+    navBar.classList.remove('sticky');
+  }
 });
