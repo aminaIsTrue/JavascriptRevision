@@ -213,7 +213,7 @@ tabsContainer.addEventListener('click', function (e) {
   if (tab) {
     // determin which tab selected
     const dataTab = tab.getAttribute('data-tab');
-    console.log(dataTab);
+    // console.log(dataTab);
     // select its adequate content area
     const contentArea = document.querySelector(
       `.operations__content--${dataTab}`
@@ -238,7 +238,7 @@ const navBar = document.querySelector('.nav');
 // because when the mouse is over a link means it is out of all the other nav links
 
 const navMngmnt = function (e, opacity) {
-  console.log(this, e.currentTarget);
+  // console.log(this, e.currentTarget);
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
     const links = link.closest('.nav').querySelectorAll('.nav__link');
@@ -259,11 +259,29 @@ navBar.addEventListener('mouseout', navMngmnt.bind(1));
 // implementing sticky navogation starting from section 1
 // solution 1: implementing scroll event(not the optimal solution as the event is fired in every scroll)
 // section 1 cordinates
-const initialScroll = section.getBoundingClientRect().top;
-window.addEventListener('scroll', function (e) {
-  if (window.scrollY >= initialScroll) {
-    navBar.classList.add('sticky');
-  } else {
-    navBar.classList.remove('sticky');
-  }
+// const initialScroll = section.getBoundingClientRect().top;
+// window.addEventListener('scroll', function (e) {
+//   if (window.scrollY >= initialScroll) {
+//     navBar.classList.add('sticky');
+//   } else {
+//     navBar.classList.remove('sticky');
+//   }
+// });
+
+// solution 2: use the intersection observer API
+
+const header1 = document.querySelector('.header');
+console.log(navBar.getBoundingClientRect().height);
+const observerCallback = function (entries) {
+  const [entry] = entries;
+  console.log(entry);
+  entry.isIntersecting
+    ? navBar.classList.remove('sticky')
+    : navBar.classList.add('sticky');
+};
+const headerObserver = new IntersectionObserver(observerCallback, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navBar.getBoundingClientRect().height}px`,
 });
+headerObserver.observe(header1);
