@@ -270,18 +270,68 @@ navBar.addEventListener('mouseout', navMngmnt.bind(1));
 
 // solution 2: use the intersection observer API
 
-const header1 = document.querySelector('.header');
-console.log(navBar.getBoundingClientRect().height);
-const observerCallback = function (entries) {
+// const header1 = document.querySelector('.header');
+// console.log(navBar.getBoundingClientRect().height);
+// const observerCallback = function (entries) {
+//   const [entry] = entries;
+//   console.log(entry);
+//   entry.isIntersecting
+//     ? navBar.classList.remove('sticky')
+//     : navBar.classList.add('sticky');
+// };
+// const headerObserver = new IntersectionObserver(observerCallback, {
+//   root: null,
+//   threshold: 0,
+//   rootMargin: `-${navBar.getBoundingClientRect().height}px`,
+// });
+// headerObserver.observe(header1);
+
+// revealing elements on scroll using IntersectionObserver
+// select the sections
+
+const sections = document.querySelectorAll('.section');
+const observerCallback = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
-  entry.isIntersecting
-    ? navBar.classList.remove('sticky')
-    : navBar.classList.add('sticky');
+  // console.log(entry);
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+
+  observer.unobserve(entry.target);
 };
-const headerObserver = new IntersectionObserver(observerCallback, {
+
+const sectionObserver = new IntersectionObserver(observerCallback, {
   root: null,
-  threshold: 0,
-  rootMargin: `-${navBar.getBoundingClientRect().height}px`,
+  threshold: 0.15,
 });
-headerObserver.observe(header1);
+
+sections.forEach(section => {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
+
+// implementing lazy loading
+// select the easy loaded images and only theses not all images
+const lazyImages = document.querySelectorAll('img[data-src]');
+
+// implement the callback function that will load the lazy loaded images
+
+const LoadImgCallBack = function (entries, observer) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  // replace the lazy image with the real image & remove the bluring class
+  entry.target.src = entry.target.dataset.src; //this will trigger the loading event which takes time to finish
+  // thas why we needed to triger the removing of the bluring class at the end of the loading
+  // for that purpuse we need to attach an event listener to the target entry
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+};
+
+// create the observer object
+const lazyImagesObserver = new IntersectionObserver(LoadImgCallBack, {
+  root: null,
+  threshold: 0.15,
+});
+
+// assign an observer to the lazy loaded images
+lazyImages.forEach(img => lazyImagesObserver.observe(img));
