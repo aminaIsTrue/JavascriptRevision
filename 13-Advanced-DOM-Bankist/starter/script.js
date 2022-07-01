@@ -335,3 +335,78 @@ const lazyImagesObserver = new IntersectionObserver(LoadImgCallBack, {
 
 // assign an observer to the lazy loaded images
 lazyImages.forEach(img => lazyImagesObserver.observe(img));
+
+// implementing the slding effect
+
+// select the slides
+const slides = document.querySelectorAll('.slide');
+// select the buttons to move between the slides
+const BtnLeft = document.querySelector('.slider__btn--left');
+const BtnRight = document.querySelector('.slider__btn--right');
+let currSlide = 0;
+const maxSlides = slides.length;
+const dotsContainer = document.querySelector('.dots');
+const slideSections = function (curr) {
+  slides.forEach((slide, i) => {
+    slide.style.transform = `translateX(${(i - curr) * 100}%)`;
+  });
+
+  // activateDot(curr);
+};
+
+// activate the dot
+const activateDot = function (curr) {
+  const dots = document.querySelectorAll(`.dots__dot`);
+  dots.forEach(dot => dot.classList.remove('dots__dot--active'));
+  const activeDot = document.querySelector(`.dots__dot[data-slide="${curr}"]`);
+  activeDot.classList.add('dots__dot--active');
+};
+// separate the overlapped slides
+slideSections(currSlide);
+// making the slides go right
+const nextSlide = function () {
+  if (currSlide === maxSlides - 1) currSlide = 0;
+  else currSlide++;
+
+  slideSections(currSlide);
+  activateDot(currSlide);
+};
+BtnRight.addEventListener('click', nextSlide);
+// making the slides go left
+const PreviousSlide = function () {
+  if (currSlide === 0) currSlide = maxSlides - 1;
+  else currSlide--;
+
+  slideSections(currSlide);
+  activateDot(currSlide);
+};
+BtnLeft.addEventListener('click', PreviousSlide);
+
+// applying go right and left when pressing the left and right arrow keyboard keys
+
+document.addEventListener('keydown', function (e) {
+  e.preventDefault();
+  if (e.key === 'ArrowRight') nextSlide();
+  else if (e.key === 'ArrowLeft') PreviousSlide();
+});
+
+// create the clickable dots
+
+const createDot = function (i) {
+  let active;
+  i === 0 ? (active = 'dots__dot--active') : '';
+  return `<button class = 'dots__dot ${active}' data-slide='${i}'></button>`;
+};
+
+for (let index = 0; index < maxSlides; index++) {
+  dotsContainer.insertAdjacentHTML('beforeend', createDot(index));
+}
+
+dotsContainer.addEventListener('click', function (e) {
+  currSlide = e.target.dataset.slide;
+  // console.log(currSlide);
+  if (e.target.classList.contains('dots__dot')) {
+    slideSections(currSlide);
+    activateDot(currSlide);
+  }
+});
