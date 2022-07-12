@@ -410,3 +410,9 @@ dotsContainer.addEventListener('click', function (e) {
     activateDot(currSlide);
   }
 });
+
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  console.log(e);
+  e.returnValue = '';
+});
