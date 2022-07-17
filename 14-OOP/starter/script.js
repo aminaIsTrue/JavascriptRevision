@@ -29,7 +29,7 @@ const littleBrother = new Person('Jalalay', 1990);
 Person.prototype.calcAge = function () {
   console.log(2037 - this.birthYear);
 };
-console.log(Person.prototype);
+// console.log(Person.prototype);
 
 // me.calcAge();
 // bigBrother.calcAge();
